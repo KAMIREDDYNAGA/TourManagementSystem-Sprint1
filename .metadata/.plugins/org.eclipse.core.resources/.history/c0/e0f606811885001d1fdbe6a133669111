@@ -1,0 +1,32 @@
+package com.sprint1.tourmanagement;
+
+import java.util.Random;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.sprint1.tourmanagement.entity.Customer;
+
+@SpringBootApplication
+public class TourManagementApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TourManagementApplication.class, args);
+		/*int len=8;
+		 String Capital = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	        String Small = "abcdefghijklmnopqrstuvwxyz";
+	        String nums = "0123456789";
+	        String symbols = "!@#$&*";
+	        String values = Capital + Small +nums + symbols;
+	        Random random = new Random();
+	        char[] password = new char[len];
+	        for (int i=0;i<len;i++)
+            {
+                password[i] = values.charAt(random.nextInt(values.length()));
+            }
+	        String pwd=String.valueOf(password);
+	        Customer customer=new Customer();
+	        customer.setPassword(pwd);*/
+	}
+
+}

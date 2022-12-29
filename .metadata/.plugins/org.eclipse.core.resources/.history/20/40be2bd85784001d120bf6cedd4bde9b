@@ -1,0 +1,86 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="cust_info")
+public class Customer {
+	
+	@Id
+	@Column(name="customer_id")
+	private int customer_id;
+	
+	@NotNull
+	@Column(name="customer_name")
+	private String customer_name;
+	
+	@NotNull
+	@Column(name="customer_contact",length=10)
+	private long customer_contact;
+	
+	@NotNull
+	@Column(name="customer_userId")
+	private String customer_userId;
+	
+	@NotNull
+	@Column(name="password")
+	private String password;
+	
+	@OneToOne
+	@JoinColumn(name="Customer_address")
+	private Address address;
+
+	public int getCustomer_id() {
+		return customer_id;
+	}
+
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
+	}
+
+	public String getCustomer_name() {
+		return customer_name;
+	}
+
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
+	}
+
+	public long getCustomer_contact() {
+		return customer_contact;
+	}
+
+	public void setCustomer_contact(long customer_contact) {
+		this.customer_contact = customer_contact;
+	}
+
+	public String getCustomer_userId() {
+		return customer_userId;
+	}
+
+	public void setCustomer_userId(String customer_userId) {
+		this.customer_userId = customer_userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+}

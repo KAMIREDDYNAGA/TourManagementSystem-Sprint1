@@ -1,0 +1,51 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table
+public class Customer_Tour {
+	
+	@Id
+	@Column(name="cust_tour_id")
+	private int cust_tour_id;
+	
+	@JoinColumn(name="user_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	private User user;
+	
+	@JoinColumn(name="tour_id")
+	@OneToMany(cascade=CascadeType.ALL)
+	private Tour tour;
+
+	public int getCust_tour_id() {
+		return cust_tour_id;
+	}
+
+	public void setCust_tour_id(int cust_tour_id) {
+		this.cust_tour_id = cust_tour_id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
+	}
+}

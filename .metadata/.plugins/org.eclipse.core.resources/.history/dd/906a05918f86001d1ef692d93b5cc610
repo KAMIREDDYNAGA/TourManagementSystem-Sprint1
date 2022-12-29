@@ -1,0 +1,8 @@
+package com.sprint1.tourmanagement.service;
+
+public class Snippet {
+	public static void main(String[] args) {
+		LocalDate.of(2022, 12, 12)
+	}
+}
+

@@ -1,0 +1,9 @@
+package com.sprint1.tourmanagement.service;
+
+import com.sprint1.tourmanagement.entity.Tour;
+
+public interface TourService {
+	
+	public Tour addTour(Tour tour);
+
+}

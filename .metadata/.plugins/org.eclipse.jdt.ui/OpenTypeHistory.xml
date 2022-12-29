@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=TourManagement/src\/main\/java=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;com.sprint1.tourmanagement.service{TourService.java[TourService" modifiers="513" timestamp="1672239012816"/>
+    <typeInfo handle="=TourManagement/src\/main\/java=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;com.sprint1.tourmanagement.service{ReservationService.java[ReservationService" modifiers="513" timestamp="1672239012837"/>
+    <typeInfo handle="=TourManagement/C:\/Users\/KANCMAHE\/.gradle\/caches\/modules-2\/files-2.1\/org.springframework.data\/spring-data-jpa\/2.7.6\/8d0414f5cca5e31509943cd5f97cacdddd7c7384\/spring-data-jpa-2.7.6.jar=/gradle_used_by_scope=/main,test=/&lt;org.springframework.data.jpa.repository(JpaRepository.class[JpaRepository" modifiers="1537" timestamp="1671259752735"/>
+    <typeInfo handle="=TourManagement/C:\/Users\/KANCMAHE\/.gradle\/caches\/modules-2\/files-2.1\/org.springframework.data\/spring-data-jpa\/2.7.6\/8d0414f5cca5e31509943cd5f97cacdddd7c7384\/spring-data-jpa-2.7.6.jar=/gradle_used_by_scope=/main,test=/&lt;org.springframework.data.jpa.mapping(JpaPersistentProperty.class[JpaPersistentProperty" modifiers="1537" timestamp="1671259752735"/>
+</typeInfoHistroy>

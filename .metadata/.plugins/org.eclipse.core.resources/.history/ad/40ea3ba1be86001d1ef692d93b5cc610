@@ -1,0 +1,87 @@
+package com.sprint1.tourmanagement.dto;
+
+import java.time.LocalDate;
+
+public class TourDto {
+
+private int tourId;
+	
+	private String tourName;
+	
+	private String tourLocation;
+
+	private String tourDetails;
+	
+	private double tourPrice;
+	
+	private LocalDate tourStartDate;
+	
+	private LocalDate tourEndDate;
+	
+	private boolean tourIsActive;
+
+	public int getTourId() {
+		return tourId;
+	}
+
+	public void setTourId(int tourId) {
+		this.tourId = tourId;
+	}
+
+	public String getTourName() {
+		return tourName;
+	}
+
+	public void setTourName(String tourName) {
+		this.tourName = tourName;
+	}
+
+	public String getTourLocation() {
+		return tourLocation;
+	}
+
+	public void setTourLocation(String tourLocation) {
+		this.tourLocation = tourLocation;
+	}
+
+	public String getTourDetails() {
+		return tourDetails;
+	}
+
+	public void setTourDetails(String tourDetails) {
+		this.tourDetails = tourDetails;
+	}
+
+	public double getTourPrice() {
+		return tourPrice;
+	}
+
+	public void setTourPrice(double tourPrice) {
+		this.tourPrice = tourPrice;
+	}
+
+	public LocalDate getTourStartDate() {
+		return tourStartDate;
+	}
+
+	public void setTourStartDate(LocalDate tourStartDate) {
+		this.tourStartDate = tourStartDate;
+	}
+
+	public LocalDate getTourEndDate() {
+		return tourEndDate;
+	}
+
+	public void setTourEndDate(LocalDate tourEndDate) {
+		this.tourEndDate = tourEndDate;
+	}
+
+	public boolean isTourIsActive() {
+		return tourIsActive;
+	}
+
+	public void setTourIsActive(boolean tourIsActive) {
+		this.tourIsActive = tourIsActive;
+	}
+
+}

@@ -1,0 +1,133 @@
+package com.sprint1.tourmanagement.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.repository.TourRepository;
+
+@SpringBootTest
+public class TourServiceTest {
+	@InjectMocks
+	TourServiceImpl tourService=new TourServiceImpl();
+	
+	@Mock
+	private TourRepository tourRepository;
+	@Test
+	public void addTour() {
+		Tour tour=new Tour();
+		tour.setTourId(123);
+		tour.setTourName("VSKP");
+		tour.setTourLocation("VSK");
+		tour.setTourDetails("Beach");
+		tour.setTourPrice(9999);
+		tour.setTourStartDate(LocalDate.of(2022, 12, 12));
+		tour.setTourEndDate(LocalDate.of(2022, 12, 15));
+		tour.setTourIsActive(true);
+		
+		when(tourRepository.save(tour)).thenReturn(tour);
+		
+		Tour newTour=tourService.addTour(tour);
+		
+		assertEquals(123,newTour.getTourId());
+		assertEquals("VSKP",newTour.getTourName());
+		assertEquals("VSK",newTour.getTourLocation());
+		assertEquals("Beach",newTour.getTourDetails());
+		assertEquals(9999,newTour.getTourPrice());
+		assertEquals(LocalDate.of(2022, 12, 12),newTour.getTourStartDate());
+		assertEquals(LocalDate.of(2022, 12, 15),newTour.getTourEndDate());
+	}
+	
+	@Test
+	public void findTourById() {		
+		Tour tour=new Tour();
+		tour.setTourId(123);
+		tour.setTourName("VSKP");
+		tour.setTourLocation("VSK");
+		tour.setTourDetails("Beach");
+		tour.setTourPrice(9999);
+		tour.setTourStartDate(LocalDate.of(2022, 12, 12));
+		tour.setTourEndDate(LocalDate.of(2022, 12, 15));
+		tour.setTourIsActive(true);
+		
+		Optional<Tour> optionalTour=Optional.of(tour);
+		when(tourRepository.findById(123)).thenReturn(optionalTour);
+		Tour tourObj=tourService.findTour(123);
+		assertEquals("VSKP",tourObj.getTourName());
+		assertEquals(123,tourObj.getTourId());
+		assertEquals("VSK",tourObj.getTourLocation());
+		assertEquals("Beach",tourObj.getTourDetails());	
+	}
+	
+	@Test
+	public void viewTours() {
+		List<Tour> tours=new ArrayList<>();
+		
+		Tour tour1=new Tour();
+		tour1.setTourId(121);
+		tour1.setTourName("VSKP");
+		tour1.setTourLocation("VSK");
+		tour1.setTourDetails("Beach");
+		tour1.setTourPrice(9999);
+		tour1.setTourStartDate(LocalDate.of(2022, 12, 12));
+		tour1.setTourEndDate(LocalDate.of(2022, 12, 15));
+		tour1.setTourIsActive(true);
+		
+		Tour tour2=new Tour();
+		tour2.setTourId(122);
+		tour2.setTourName("AKP");
+		tour2.setTourLocation("VSKP");
+		tour2.setTourDetails("Beach");
+		tour2.setTourPrice(8888);
+		tour2.setTourStartDate(LocalDate.of(2022, 11, 12));
+		tour2.setTourEndDate(LocalDate.of(2022, 11, 15));
+		tour2.setTourIsActive(true);
+		
+		tours.add(tour1);
+		tours.add(tour2);
+		
+		when(tourRepository.findAll()).thenReturn(tours);
+		
+		List<Tour> toursList=tourService.displayTours();
+		assertEquals(toursList.size(),tours.size());
+		
+	}
+	
+	@Test
+	public void deleteTour() {
+		Tour tour1=new Tour();
+		tour1.setTourId(121);
+		tour1.setTourName("VSKP");
+		tour1.setTourLocation("VSK");
+		tour1.setTourDetails("Beach");
+		tour1.setTourPrice(9999);
+		tour1.setTourStartDate(LocalDate.of(2022, 12, 12));
+		tour1.setTourEndDate(LocalDate.of(2022, 12, 15));
+		tour1.setTourIsActive(true);
+		
+		Optional<Tour> optionalTour=Optional.of(tour1);
+		when(tourRepository.findById(121)).thenReturn(optionalTour);
+		doNothing().when(tourRepository).deleteById(121);
+		
+		tourService.deleteTour(121);
+		
+		verify(tourRepository,times(1)).findById(121);
+		verify(tourRepository,times(1)).deleteById(121);	
+	}
+
+	
+
+}

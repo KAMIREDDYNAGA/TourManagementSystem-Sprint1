@@ -1,0 +1,9 @@
+package com.sprint1.tourmanagement.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface tourManagementRepository extends JpaRepository{
+	
+	public String doLogin(String username,String password,String user_type); 
+
+}

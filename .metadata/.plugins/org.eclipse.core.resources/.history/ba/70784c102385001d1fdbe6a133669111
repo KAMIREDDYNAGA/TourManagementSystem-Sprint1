@@ -1,0 +1,48 @@
+package com.sprint1.tourmanagement.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.exception.UserNotFoundException;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Override
+	public User userLogin(String userType, String userId, String password) {
+		User user=userRepository.doLogin(userType, userId, password);
+		if(user==null) {
+			throw new UserNotFoundException("There is no "+userType+" found with the given Username and Password");
+		}
+		return user;
+	}
+	
+	@Override
+	public User saveUser(User user) {
+		User user1=userRepository.save(user);
+		//String password=user.getUserPassword();
+		return user1;
+	}
+
+	@Override
+	public User updateUser(User user) {
+		Optional<User> user1=userRepository.findById(user.getUserId());
+		if(user1.isEmpty()) {
+			throw new UserNotFoundException("There is no user existed with id: "+user.getUserId());
+		}
+		User user2=new User();
+		return userRepository.save(user2);}
+
+	@Override
+	public User getUserUserId(String userUserId) {
+		User user=userRepository.findByUserUserId(userUserId)
+		return null;
+	}
+}

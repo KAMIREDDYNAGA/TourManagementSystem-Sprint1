@@ -1,0 +1,187 @@
+package com.sprint1.tourmanagement.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.entity.Address;
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.exception.UserNotFoundException;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@SpringBootTest
+public class UserServiceTest {
+	
+	@InjectMocks
+    private UserServiceImpl userService=new UserServiceImpl();
+
+    @Mock
+    private UserRepository userRepository;
+
+    @Test
+    public void testGetUserById() {
+        User user=new User();
+        user.setUserId(1);
+        user.setUserName("naga");
+        user.setUserContact("9876543212");
+        user.setUserUserId("ABCDE");
+        user.setUserPassword("Naga@1234");
+
+        Address address1=new Address();
+        address1.setAddressId(14);
+        address1.setCity("east");
+        address1.setDno("2-1a");
+        address1.setLocality("rajmundhry");
+        address1.setState("west");
+        address1.setPincode(536113);
+
+        user.setAddress(address1);
+
+        Optional<User> optionalUser=Optional.of(user);
+
+        when(userRepository.findById(1)).thenReturn(optionalUser);
+
+        User userObj=userService.findUserById(1);
+
+        assertEquals("naga",userObj.getUserName());
+
+        assertEquals("east",userObj.getAddress().getCity());
+    }
+
+    @Test
+    public void testGetUserByIdException() {
+        when(userRepository.findById(2)).thenThrow(UserNotFoundException.class);
+        assertThrows(UserNotFoundException.class,()->userService.findUserById(2));
+    }
+
+    @Test
+    void testGetAllUsers() {
+
+        List<User> users = new ArrayList<>();
+
+        User user1=new User();
+        user1.setUserId(2);
+        user1.setUserName("uma");
+        user1.setUserContact("8876543212");
+        user1.setUserUserId("AUCDE");
+        user1.setUserPassword("Uma@1234");
+
+        Address address1=new Address();
+        address1.setAddressId(15);
+        address1.setCity("krishna");
+        address1.setDno("2a");
+        address1.setLocality("nuzvidu");
+        address1.setState("andhra");
+        address1.setPincode(536183);
+
+        user1.setAddress(address1);
+
+        User user2=new User();
+        user2.setUserId(3);
+        user2.setUserName("yuva");
+        user2.setUserContact("7876543212");
+        user2.setUserUserId("AOCDE");
+        user2.setUserPassword("YUva@1234");
+
+        Address address2=new Address();
+        address2.setAddressId(18);
+        address2.setCity("amaravathi");
+        address2.setDno("2-22");
+        address2.setLocality("guntur");
+        address2.setState("karnataka");
+        address2.setPincode(536112);
+
+        user2.setAddress(address2);
+
+        User user3=new User();
+        user3.setUserId(4);
+        user3.setUserName("chandhu");
+        user3.setUserContact("9879543212");
+        user3.setUserUserId("ABCDA");
+        user3.setUserPassword("Chandhu@1234");
+
+        Address address3=new Address();
+        address3.setAddressId(14);
+        address3.setCity("east");
+        address3.setDno("2-1a");
+        address3.setLocality("rajmundhry");
+        address3.setState("west");
+        address3.setPincode(536113);
+
+        user3.setAddress(address3);
+
+
+        users.add(user3);
+        users.add(user2);
+        users.add(user1);
+
+        when(userRepository.findAll()).thenReturn(users);
+        List<User> usersList = userService.getAllUsers();
+        assertEquals(3,usersList.size());                
+    }
+
+    @Test
+    public void testDeleteUser() {
+
+        User user3=new User();
+        user3.setUserId(5);
+        user3.setUserName("sonali");
+        user3.setUserContact("9889543212");
+        user3.setUserUserId("ABCFA");
+        user3.setUserPassword("Sonali@1234");
+
+        Address address1=new Address();
+        address1.setAddressId(10);
+        address1.setCity("vizag");
+        address1.setDno("2-12A");
+        address1.setLocality("narsipatnam");
+        address1.setState("andhra pradesh");
+        address1.setPincode(531113);
+
+        user3.setAddress(address1);
+
+        Optional<User> optionalUser = Optional.of(user3);
+        when(userRepository.findById(5)).thenReturn(optionalUser);
+        doNothing().when(userRepository).deleteById(5);
+        userService.deleteUserById(0);
+        verify(userRepository,times(1)).findById(5);
+        verify(userRepository,times(1)).deleteById(5);
+    }
+
+   /* @Test
+    void testSaveUser() {
+        User user = new User();
+        user.setUserId(7);
+        user.setUserName("maheshwari");
+        user.setUserContact("9876324123");
+        user.setUserUserId("ABIOP");
+        user.setUserPassword("Maheshwari@1234");
+
+        Address address1=new Address();
+        address1.setAddressId(60);
+        address1.setCity("vizagggg");
+        address1.setDno("2-12a");
+        address1.setLocality("patnam");
+        address1.setState("Ap");
+        address1.setPincode(541113);
+
+        user.setAddress(address1);
+
+        when(userRepository.save(user)).thenReturn(user);
+        String newUser = userService.saveUser(user);
+        assertEquals("user added successfully",newUser);
+    }*/
+
+}

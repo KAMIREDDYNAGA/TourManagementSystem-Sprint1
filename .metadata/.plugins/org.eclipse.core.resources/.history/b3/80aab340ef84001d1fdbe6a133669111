@@ -1,0 +1,91 @@
+package com.sprint1.tourmanagement.entity;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Reservation_info")
+public class Reservation {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="cust_tour_generator"
+			)
+	@SequenceGenerator(
+			name="cust_tour_generator",
+			sequenceName="cust_tour_sequence",
+			initialValue=101,
+			allocationSize=1
+			)
+	@Column(name="reservationId")
+	private int reservationId;
+	
+	@JoinColumn(name="customer_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Customer customer;
+	
+	@JoinColumn(name="tour_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Tour tour;
+	
+	@Column(name="payment_info",columnDefinition = "VARCHAR(10) CHECK (payment_info IN ('Cash','UPI','Credit'))")
+	private String paymentInfo;
+	
+	@Column(name="reservedTime")
+	private LocalTime reservedTime;
+	
+	@Column(name="reserveddate")
+	private LocalDate reservedDate;
+
+	public LocalTime getReservedTime() {
+		return reservedTime;
+	}
+
+	public void setReservedTime(LocalTime reservedTime) {
+		this.reservedTime = reservedTime;
+	}
+
+	public int getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
+	}
+
+	public String getPaymentInfo() {
+		return paymentInfo;
+	}
+
+	public void setPaymentInfo(String paymentInfo) {
+		this.paymentInfo = paymentInfo;
+	}	
+}

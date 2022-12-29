@@ -1,0 +1,10 @@
+package com.sprint1.tourmanagement.exception;
+
+public class InvalidUserException extends RuntimeException{
+	
+	public InvalidUserException(String msg) {
+		super(msg);
+		
+	}
+
+}

@@ -1,0 +1,23 @@
+package com.sprint1.tourmanagement.service;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.repository.TourRepository;
+
+@SpringBootTest
+public class TourServiceTest {
+	
+	@InjectMocks
+	private TourServiceImpl tourService=new TourServiceImpl();
+	
+	@Mock
+	private TourRepository tourRepository;
+	@Test
+	public void findTour() {
+		
+	}
+
+}

@@ -1,0 +1,15 @@
+package com.sprint1.tourmanagement.service;
+
+import java.util.List;
+
+import com.sprint1.tourmanagement.entity.User;
+
+public interface UserService {
+	
+	public String userLogin(String userType,String userId,String password);
+	public void validLogin(String userId,String password);
+	public String saveUser(User user);
+	public User updateUser(User user); 
+	public String deleteUserById(int userId);
+	public List<User> getAllUsers();
+}

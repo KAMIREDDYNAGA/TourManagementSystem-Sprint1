@@ -1,0 +1,79 @@
+package com.sprint1.tourmanagement.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.entity.Address;
+import com.sprint1.tourmanagement.entity.Reservation;
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.repository.ReservationRepository;
+import com.sprint1.tourmanagement.repository.TourRepository;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@SpringBootTest
+public class ReservationServiceTest {
+	
+	ReservationServiceImpl reservationService=new ReservationServiceImpl();
+	
+	@Mock
+	private ReservationRepository reservationRepository;
+//	@Mock
+//	private UserRepository userRepository;
+//	@Mock
+//	private TourRepository tourRepository;
+	
+	@Test
+	public void addReservation() {
+		Reservation reservation=new Reservation();
+		reservation.setReservationId(1001);
+		reservation.setReservedDate(LocalDate.of(2022, 12, 01));
+		reservation.setPaymentDate(LocalDate.of(2022, 12, 01));
+		reservation.setPaymentInfo("cash");
+		reservation.setPaymentStatus("completed");
+		
+		Tour tour=new Tour();
+		tour.setTourId(123);
+		tour.setTourName("VSKP");
+		tour.setTourLocation("VSK");
+		tour.setTourDetails("Beach");
+		tour.setTourPrice(9999);
+		tour.setTourStartDate(LocalDate.of(2022, 12, 12));
+		tour.setTourEndDate(LocalDate.of(2022, 12, 15));
+		tour.setTourIsActive(true);
+		
+		User user=new User();
+		user.setUserId(7);
+        user.setUserName("maheshwari");
+        user.setUserContact(984554321);
+        user.setUserUserId("ABIOP");
+        user.setUserPassword("Maheshwari@1234");
+        
+        Address address1=new Address();
+        address1.setAddressId(60);
+        address1.setCity("vizagggg");
+        address1.setDno("2-12a");
+        address1.setLocality("patnam");
+        address1.setState("Ap");
+        address1.setPincode(541113);
+        user.setAddress(address1);
+        
+		reservation.setTour(tour);
+		reservation.setUser(user);
+		
+		when(reservationRepository.save(reservation)).thenReturn(reservation);
+		
+		Reservation newReservation=reservationService.newReservation(7, 123, "cash", LocalDate.of(2022, 12, 01),LocalDate.of(2022, 12, 01) );
+		assertEquals(1001,newReservation.getReservationId());
+		assertEquals(LocalDate.of(2022, 12, 01),newReservation.getReservedDate());
+		assertEquals(LocalDate.of(2022, 12, 01),newReservation.getPaymentDate());
+		assertEquals("cash",newReservation.getPaymentInfo());
+	}
+
+}

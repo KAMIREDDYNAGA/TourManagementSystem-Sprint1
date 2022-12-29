@@ -1,0 +1,57 @@
+package com.sprint1.tourmanagement.controller;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sprint1.tourmanagement.entity.Reservation;
+import com.sprint1.tourmanagement.service.ReservationService;
+
+@RestController
+public class ReservationController {
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+
+	@PostMapping("New_Reservation/{UserId}/{TourId}/{PaymentInfo}/{ReservedDate}/{PaymentDate}")
+	public ResponseEntity<Reservation> reserveTour(@PathVariable("UserId") int userId,@PathVariable("TourId")int tourId,@PathVariable("PaymentInfo")String paymentInfo,@PathVariable("ReservedDate") String rDate,@PathVariable("PaymentDate") String pDate){
+		LocalDate reservedDate=LocalDate.parse(rDate);
+		LocalDate paymentDate=LocalDate.parse(pDate);
+		Reservation reservation=reservationService.newReservation(userId,tourId,paymentInfo,reservedDate,paymentDate);
+		ResponseEntity<Reservation> responseEntity=new ResponseEntity<>(reservation,HttpStatus.OK);
+		return responseEntity;	
+	}
+	
+	@GetMapping("View_Reservation/{userId}")
+	public ResponseEntity<Reservation> viewReservation(@PathVariable("userId") int userId){
+		Reservation reservation=reservationService.viewReservation(userId);
+		ResponseEntity<Reservation> responseEntity=new ResponseEntity<>(reservation,HttpStatus.OK);
+		return responseEntity;	
+	}
+	
+	@PutMapping("Modify_Reservation/{ReservationId}")
+	public ResponseEntity<Reservation> updateReservation(@PathVariable("ReservationId") int reservationId, @RequestBody Reservation reservation){
+		Reservation ureservation=reservationService.modifyReservation(reservationId,reservation);
+		ResponseEntity<Reservation> responseEntity=new ResponseEntity<>(ureservation,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	@GetMapping("View_All_Reservations")
+	public ResponseEntity<List<Reservation>> fetchAll(){
+		List<Reservation> list=reservationService.getAllReservation();
+		ResponseEntity<List<Reservation>> responseEntity=new ResponseEntity<>(list,HttpStatus.OK);
+		return responseEntity;
+		
+	}
+	
+}

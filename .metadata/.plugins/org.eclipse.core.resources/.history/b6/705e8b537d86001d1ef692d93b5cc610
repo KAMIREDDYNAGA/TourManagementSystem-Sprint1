@@ -1,0 +1,46 @@
+package com.sprint1.tourmanagement.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.repository.TourRepository;
+
+@SpringBootTest
+public class TourServiceTest {
+	
+	@InjectMocks
+	private TourServiceImpl tourService=new TourServiceImpl();
+	
+	@Mock
+	private TourRepository tourRepository;
+	@Test
+	public void findTour() {
+		Tour tour=new Tour();
+		tour.setTourId(123);
+		tour.setTourName("VSKP");
+		tour.setTourPrice(9999);
+		tour.setTourDetails("Beach");
+		tour.setTourStartDate(LocalDate.of(2022, 12, 27));
+		tour.setTourEndDate(LocalDate.of(2022, 12, 30));
+		tour.setTourIsActive(true);
+		
+		Optional<Tour> optionalTour=Optional.of(tour);
+		
+		when(tourRepository.findById(123)).thenReturn(optionalTour);
+		
+		Tour tourObj=tourService.findTour(123);
+		
+		assertEquals(123,tourObj.getTourId());
+		//assertEquals("")
+	}
+
+}

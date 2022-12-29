@@ -1,0 +1,9 @@
+package com.sprint1.tourmanagement.service;
+
+import com.sprint1.tourmanagement.entity.Customer_Tour;
+
+public interface ReservationService {
+	
+	public Customer_Tour newReservation(int custId,int tourId);
+
+}

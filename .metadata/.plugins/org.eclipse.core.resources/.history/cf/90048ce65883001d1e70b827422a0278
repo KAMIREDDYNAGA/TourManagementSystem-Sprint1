@@ -1,0 +1,13 @@
+package com.sprint1.tourmanagement.service;
+
+import com.sprint1.tourmanagement.entity.Tour;
+
+public class TourServiceImplementation implements TourService {
+
+	@Override
+	public Tour addTour(Tour tour) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

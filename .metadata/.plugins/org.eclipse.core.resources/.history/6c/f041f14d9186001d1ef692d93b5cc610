@@ -1,0 +1,22 @@
+package com.sprint1.tourmanagement.service;
+
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.sprint1.tourmanagement.repository.ReservationRepository;
+import com.sprint1.tourmanagement.repository.TourRepository;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@SpringBootTest
+public class ReservationServiceTest {
+	
+	ReservationServiceImpl reservationService=new ReservationServiceImpl();
+	
+	@Mock
+	private ReservationRepository reservationRepository;
+	@Mock
+	private UserRepository userRepository;
+	@Mock
+	private TourRepository tourRepository;
+
+}

@@ -1,0 +1,13 @@
+package com.sprint1.tourmanagement.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sprint1.tourmanagement.entity.Reservation;
+import com.sprint1.tourmanagement.entity.User;
+
+public interface ReservationRepository extends JpaRepository<Reservation,Integer>{
+	List<Reservation> findByuser(User user);
+
+}

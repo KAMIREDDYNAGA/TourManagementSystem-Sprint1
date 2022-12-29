@@ -1,0 +1,58 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="cust_info")
+public class Customer {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="customer_generator"
+			)
+	@SequenceGenerator(
+			name="customer_generator",
+			sequenceName="customer_sequence",
+			initialValue=201,
+			allocationSize=1
+			)
+	@Column(name="customeId")
+	private int customerId;
+	
+	@NotNull
+	@Column(name="customerName")
+	private String customerName;
+	
+	@NotNull
+	@Column(name="customerContact",length=10)
+	private long customerContact;
+	
+	@NotNull
+	@GeneratedValue(generator="uuid")
+	@GenericGenerator(name="uuid",strategy="uuid2")
+	@Column(name="customerUserId")
+	private String customerUserId;
+	
+	@NotNull
+	@Column(name="password")
+	private String password;
+	//private static final String password;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Customer_address")
+	private Address address;
+	
+}

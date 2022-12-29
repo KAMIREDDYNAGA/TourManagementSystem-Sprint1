@@ -1,0 +1,9 @@
+package com.sprint1.tourmanagement.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sprint1.tourmanagement.dto.ReservationDto;
+
+public interface ReservationRespositoryDto extends JpaRepository<ReservationDto, Integer> {
+
+}

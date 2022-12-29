@@ -1,0 +1,74 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Reservation")
+public class Customer_Tour {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="cust_tour_generator"
+			)
+	@SequenceGenerator(
+			name="cust_tour_generator",
+			sequenceName="cust_tour_sequence",
+			initialValue=101,
+			allocationSize=1
+			)
+	@Column(name="reservation_id")
+	private int reservation_id;
+	
+	@JoinColumn(name="user_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	private User user;
+	
+	@JoinColumn(name="tour_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Tour tour;
+	
+	@Column(name="payment_info",columnDefinition = "VARCHAR(10) CHECK (payment_info IN ('Cash','UPI','Credit'))")
+	private String payment_info;
+
+	public String getPayment_info() {
+		return payment_info;
+	}
+
+	public void setPayment_info(String payment_info) {
+		this.payment_info = payment_info;
+	}
+
+	public int getReservation_id() {
+		return reservation_id;
+	}
+
+	public void setReservation_id(int reservation_id) {
+		this.reservation_id = reservation_id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
+	}
+}

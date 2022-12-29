@@ -1,0 +1,127 @@
+package com.sprint1.tourmanagement.service;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.sprint1.tourmanagement.entity.Address;
+import com.sprint1.tourmanagement.entity.Reservation;
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.repository.ReservationRepository;
+import com.sprint1.tourmanagement.repository.TourRepository;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@SpringBootApplication
+public class ReservationServiceTest {
+
+	@InjectMocks
+	ReservationServiceImpl reservationService = new ReservationServiceImpl();
+
+	@Mock
+	private ReservationRepository reservationRepository;
+
+	@Mock
+	private UserRepository userRepository;
+
+	@Mock
+	private TourRepository tourRepository;
+
+	@Test
+	public void getAllReservations() {
+		List<Reservation> reservations = new ArrayList<>();
+
+		Reservation reservation1 = new Reservation();
+		reservation1.setReservationId(901);
+		reservation1.setPaymentDate(LocalDate.of(2022, 12, 12));
+		reservation1.setReservedDate(LocalDate.of(2022, 12, 12));
+		reservation1.setPaymentInfo("Cash");
+		reservation1.setPaymentStatus("Completed");
+
+		Tour tour1 = new Tour();
+		tour1.setTourId(111);
+		tour1.setTourName("VSKP");
+		tour1.setTourPrice(9999);
+		tour1.setTourDetails("Beach");
+		tour1.setTourStartDate(LocalDate.of(2022, 12, 27));
+		tour1.setTourEndDate(LocalDate.of(2022, 12, 30));
+		tour1.setTourIsActive(true);
+
+		User user1 = new User();
+		user1.setUserId(222);
+		user1.setUserName("Uma");
+		user1.setUserContact(987654321);
+		user1.setUserType("Admin");
+		user1.setUserUserId("KANCMAHE");
+		user1.setUserPassword("Uma@619");
+
+		Address address1 = new Address();
+		address1.setAddressId(1001);
+		address1.setCity("VSKP");
+		address1.setCountry("India");
+		address1.setDno("6-42");
+		address1.setLocality("AKP");
+		address1.setState("AP");
+		address1.setPincode(531022);
+
+		user1.setAddress(address1);
+
+		reservation1.setUser(user1);
+		reservation1.setTour(tour1);
+
+		Reservation reservation2 = new Reservation();
+		reservation2.setReservationId(902);
+		reservation2.setPaymentDate(LocalDate.of(2022, 11, 12));
+		reservation2.setReservedDate(LocalDate.of(2022, 11, 12));
+		reservation2.setPaymentInfo("Credit");
+		reservation2.setPaymentStatus("Completed");
+
+		Tour tour2 = new Tour();
+		tour2.setTourId(112);
+		tour2.setTourName("AKP");
+		tour2.setTourPrice(8888);
+		tour2.setTourDetails("Market");
+		tour2.setTourStartDate(LocalDate.of(2022, 10, 27));
+		tour2.setTourEndDate(LocalDate.of(2022, 10, 30));
+		tour2.setTourIsActive(true);
+
+		User user2 = new User();
+		user2.setUserId(223);
+		user2.setUserName("Uma");
+		user2.setUserContact(987654321);
+		user2.setUserType("Admin");
+		user2.setUserUserId("KANCMAHE");
+		user2.setUserPassword("Uma@619");
+
+		Address address2 = new Address();
+		address2.setAddressId(1002);
+		address2.setCity("VSKP");
+		address2.setCountry("India");
+		address2.setDno("6-42");
+		address2.setLocality("AKP");
+		address2.setState("AP");
+		address2.setPincode(531022);
+
+		user2.setAddress(address2);
+		reservation2.setTour(tour2);
+		reservation2.setUser(user2);
+
+		reservations.add(reservation1);
+		reservations.add(reservation2);
+		
+		when(reservationRepository.findAll()).thenReturn(reservations);
+		
+		List<Reservation> reservationList=reservationService.getAllReservation();
+		assertEquals(reservations.size(),reservationList.size());
+
+	}
+
+}

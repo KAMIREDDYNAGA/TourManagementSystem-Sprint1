@@ -1,0 +1,16 @@
+package com.sprint1.tourmanagement.service;
+
+import org.springframework.stereotype.Service;
+
+import com.sprint1.tourmanagement.entity.Customer;
+
+@Service
+public class CustomerServiceImplementation implements CustomerService {
+
+	@Override
+	public Customer addCustomer() {
+		
+		return null;
+	}
+
+}

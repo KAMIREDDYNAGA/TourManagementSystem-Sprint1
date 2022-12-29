@@ -1,0 +1,33 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table
+public class Address {
+	
+	@Id
+	@Column(name="addressID")
+	private int addressId;
+	
+	@Column(name="Dno")
+	private String Dno;
+	
+	@NotNull
+	@Column(name="locality")
+	private String locality;
+	
+	@Column(name="city")
+	private String city;
+	
+	@Column(name="state")
+	private String state;
+	
+	@Column(name="pincode",length=6)
+	private long pincode;
+
+}

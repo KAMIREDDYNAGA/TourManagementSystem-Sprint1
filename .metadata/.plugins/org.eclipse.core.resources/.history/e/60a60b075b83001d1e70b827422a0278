@@ -1,0 +1,106 @@
+package com.sprint1.tourmanagement.entity;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tour_tbl")
+public class Tour {
+	
+	@Id
+	@Column(name="tour_id")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private int tour_id;
+	
+	@Column(name="tour_name",nullable=false)
+	private String tour_name;
+	
+	@Column(name="tour_location",nullable=false)
+	private String tour_location;
+	
+	@Column(name="tour_details")
+	private String tour_details;
+	
+	@Column(name="tour_price")
+	private double tour_price;
+	
+	@Column(name="tour_startDate")
+	private LocalDate tour_startDate;
+	
+	@Column(name="tour_endDate")
+	private LocalDate tour_endDate;
+	
+	@Column(name="tour_isActive")
+	private boolean tour_isActive;
+
+	public int getTour_id() {
+		return tour_id;
+	}
+
+	public void setTour_id(int tour_id) {
+		this.tour_id = tour_id;
+	}
+
+	public String getTour_name() {
+		return tour_name;
+	}
+
+	public void setTour_name(String tour_name) {
+		this.tour_name = tour_name;
+	}
+
+	public String getTour_location() {
+		return tour_location;
+	}
+
+	public void setTour_location(String tour_location) {
+		this.tour_location = tour_location;
+	}
+
+	public String getTour_details() {
+		return tour_details;
+	}
+
+	public void setTour_details(String tour_details) {
+		this.tour_details = tour_details;
+	}
+
+	public double getTour_price() {
+		return tour_price;
+	}
+
+	public void setTour_price(double tour_price) {
+		this.tour_price = tour_price;
+	}
+
+	public LocalDate getTour_startDate() {
+		return tour_startDate;
+	}
+
+	public void setTour_startDate(LocalDate tour_startDate) {
+		this.tour_startDate = tour_startDate;
+	}
+
+	public LocalDate getTour_endDate() {
+		return tour_endDate;
+	}
+
+	public void setTour_endDate(LocalDate tour_endDate) {
+		this.tour_endDate = tour_endDate;
+	}
+
+	public boolean isTour_isActive() {
+		return tour_isActive;
+	}
+
+	public void setTour_isActive(boolean tour_isActive) {
+		this.tour_isActive = tour_isActive;
+	}
+
+}

@@ -1,0 +1,28 @@
+package com.sprint1.tourmanagement.entity;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tour_tbl")
+public class Tour {
+	
+	@Id
+	@Column(name="tour_id")
+	//@GeneratedValue(strategy=GenerationType.)
+	private int tour_id;
+	@Column(name="tour_name",nullable=false)
+	private String tour_name;
+	@Column(name="tour_location",nullable=false)
+	private String tour_location;
+	private String tour_details;
+	private double tour_price;
+	private LocalDate tour_startDate;
+	private LocalDate tour_endDate;
+	private boolean tour_isActive;
+
+}

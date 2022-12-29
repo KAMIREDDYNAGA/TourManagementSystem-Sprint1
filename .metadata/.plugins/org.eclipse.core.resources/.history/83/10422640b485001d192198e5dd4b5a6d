@@ -1,0 +1,108 @@
+package com.sprint1.tourmanagement.entity;
+
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Reservation_info")
+public class Reservation {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="custTourGenerator"
+			)
+	@SequenceGenerator(
+			name="custTourGenerator",
+			sequenceName="custTourSequence",
+			initialValue=101,
+			allocationSize=1
+			)
+	@Column(name="reservationId")
+	private int reservationId;
+	
+	@JoinColumn(name="user_id")
+	@ManyToOne
+	private User user;
+	
+	@JoinColumn(name="tour_id")
+	@ManyToOne
+	private Tour tour;
+	
+	@Column(name="payment_info",columnDefinition = "VARCHAR(10) CHECK (payment_info IN ('Cash','Check','Credit'))")
+	private String paymentInfo;
+	
+	@Column(name="paymentStatus")
+	private String paymentStatus;
+	
+	@Column(name="reserveddate")
+	private LocalDate reservedDate;
+	
+	@Column(name="paymentDate")
+	private LocalDate paymentDate;
+
+	
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+
+	public LocalDate getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(LocalDate paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
+	public LocalDate getReservedDate() {
+		return reservedDate;
+	}
+
+	public void setReservedDate(LocalDate reservedDate) {
+		this.reservedDate = reservedDate;
+	}
+
+	public int getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Tour getTour() {
+		return tour;
+	}
+
+	public void setTour(Tour tour) {
+		this.tour = tour;
+	}
+
+	public String getPaymentInfo() {
+		return paymentInfo;
+	}
+
+	public void setPaymentInfo(String paymentInfo) {
+		this.paymentInfo = paymentInfo;
+	}	
+}

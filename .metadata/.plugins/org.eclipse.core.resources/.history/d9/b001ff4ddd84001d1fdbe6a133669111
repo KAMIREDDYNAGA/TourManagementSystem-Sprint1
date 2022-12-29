@@ -1,0 +1,9 @@
+package com.sprint1.tourmanagement.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sprint1.tourmanagement.entity.Customer_Tour;
+
+public interface ReservationRepository extends JpaRepository<Customer_Tour,Integer>{
+
+}

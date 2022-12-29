@@ -1,0 +1,101 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="cust_info")
+public class Customer {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="customer_generator"
+			)
+	@SequenceGenerator(
+			name="customer_generator",
+			sequenceName="customer_sequence",
+			initialValue=201,
+			allocationSize=1
+			)
+	@Column(name="customeId")
+	private int customerId;
+	
+	@NotNull
+	@Column(name="customerName")
+	private String customerName;
+	
+	@NotNull
+	@Column(name="customerContact",length=10)
+	private long customerContact;
+	
+	@NotNull
+	@Column(name="customerUserId")
+	private String customerUserId;
+	
+	@NotNull
+	@Column(name="password")
+	private String password;
+	//private static final String password;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="Customer_address")
+	private Address address;
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public long getCustomerContact() {
+		return customerContact;
+	}
+
+	public void setCustomerContact(long customerContact) {
+		this.customerContact = customerContact;
+	}
+
+	public String getCustomerUserId() {
+		return customerUserId;
+	}
+
+	public void setCustomerUserId(String customerUserId) {
+		this.customerUserId = customerUserId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}	
+}

@@ -1,0 +1,49 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table
+public class Address {
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="address_generator"
+			)
+	@SequenceGenerator(
+			name="address_generator",
+			sequenceName="address_sequence",
+			initialValue=1001,
+			allocationSize=1
+			)
+	@Column(name="addressID")
+	private int addressId;
+	
+	@NotNull
+	@Column(name="Dno")
+	private String Dno;
+	
+	@NotNull
+	@Column(name="locality")
+	private String locality;
+	
+	@NotNull
+	@Column(name="city")
+	private String city;
+	
+	@NotNull
+	@Column(name="state")
+	private String state;
+	
+	@NotNull
+	@Column(name="pincode",length=6)
+	private long pincode;
+}

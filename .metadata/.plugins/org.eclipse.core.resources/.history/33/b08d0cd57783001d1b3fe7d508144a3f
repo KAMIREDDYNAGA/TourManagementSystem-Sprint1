@@ -1,0 +1,20 @@
+package com.sprint1.tourmanagement.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.repository.TourRepository;
+
+@Service
+public class TourServiceImplementation implements TourService {
+
+	@Autowired
+	private TourRepository tourRepository;
+	@Override
+	public Tour addTour(Tour tour) {
+		Tour tour1=tourRepository.save(tour);
+		return tour1;
+	}
+
+}

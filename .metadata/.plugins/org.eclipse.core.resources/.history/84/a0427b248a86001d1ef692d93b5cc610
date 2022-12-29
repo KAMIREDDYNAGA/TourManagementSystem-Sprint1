@@ -1,0 +1,17 @@
+package com.sprint1.tourmanagement;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TourServiceTest {
+	
+	private TourRespository tourRepository;
+	
+	
+	@Test
+	public void findTour() {
+		
+	}
+
+}

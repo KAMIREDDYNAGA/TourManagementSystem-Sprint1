@@ -1,0 +1,97 @@
+package com.sprint1.tourmanagement.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user_tbl")
+public class User {
+	/*@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			generator="tour_sequence"
+			)
+	
+	@SequenceGenerator(
+			name="tour_generator",
+			sequenceName="tour_sequence_name",
+			allocationSize=94
+			)*/
+	
+	@Id
+	@GeneratedValue(
+			strategy=GenerationType.SEQUENCE,
+			
+	)
+	@Column(name="user_id")
+	private int user_id;
+	
+	@Column(name="user_name",nullable=false)
+	private String user_name;
+	
+	@Column(name="user_contact",length=10,nullable=false)
+	private long user_contact;
+	
+	@Column(name="user_userId",unique=true,nullable=false)
+	private String user_userId;
+	
+	@Column(name="user_password",nullable=false)
+	private String user_password;
+	
+	@Column(name="user_type",columnDefinition = "VARCHAR(10) CHECK (user_type IN ('Admin', 'Customer', 'Staff'))")
+	private String user_type;
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public long getUser_contact() {
+		return user_contact;
+	}
+
+	public void setUser_contact(long user_contact) {
+		this.user_contact = user_contact;
+	}
+
+	public String getUser_userId() {
+		return user_userId;
+	}
+
+	public void setUser_userId(String user_userId) {
+		this.user_userId = user_userId;
+	}
+
+	public String getUser_password() {
+		return user_password;
+	}
+
+	public void setUser_password(String user_password) {
+		this.user_password = user_password;
+	}
+
+	public String getUser_type() {
+		return user_type;
+	}
+
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
+	}
+
+
+}

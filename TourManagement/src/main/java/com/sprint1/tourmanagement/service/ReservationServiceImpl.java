@@ -1,0 +1,148 @@
+package com.sprint1.tourmanagement.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sprint1.tourmanagement.entity.Reservation;
+import com.sprint1.tourmanagement.entity.Tour;
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.exception.ReservationNotFoundException;
+import com.sprint1.tourmanagement.exception.UserNotFoundException;
+import com.sprint1.tourmanagement.repository.ReservationRepository;
+import com.sprint1.tourmanagement.repository.TourRepository;
+import com.sprint1.tourmanagement.repository.UserRepository;
+
+@Service
+public class ReservationServiceImpl implements ReservationService {
+
+	@Autowired
+	private ReservationRepository reservationRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private TourRepository tourRepository;
+
+	// Reserving the Tour
+	@Override
+	public String newReservation(int userId, int tourId, String paymentInfo, LocalDate reservedDate,
+			LocalDate paymentDate) {
+		Reservation reservation = new Reservation();
+		// check payment info should be either cash,credit,cheque
+		if (!paymentInfo.equalsIgnoreCase("cash") && !paymentInfo.equalsIgnoreCase("cheque")
+				&& !paymentInfo.equalsIgnoreCase("credit")) {
+			return "Payment Info should be either cash or cheque or credit";
+		}
+		// saving payment info
+		reservation.setPaymentInfo(paymentInfo.toLowerCase());
+
+		Optional<User> optionalUser = userRepository.findById(userId);
+		Optional<Tour> optionalTour = tourRepository.findById(tourId);
+
+		// Validating User
+		if (optionalUser.isEmpty()) {
+			return "There is no User with Id: " + userId;
+		}
+
+		// Saving user
+		User user = optionalUser.get();
+		reservation.setUser(user);
+
+		// Validating Tour and saving it
+		if (optionalTour.isEmpty()) {
+			return "There is no Tour with Id: " + tourId;
+		}
+
+		Tour tour = optionalTour.get();
+		if (!tour.isTourIsActive()) {
+			return "Tour with id " + tourId + " is not Active anymore";
+		}
+		reservation.setTour(tour);
+		// Validating Reservation date and saving it
+		LocalDate tourStartDate = reservation.getTour().getTourStartDate();
+
+		if (reservedDate.compareTo(tourStartDate) > 0) {
+			return "ReservedDate can't be a future date than Tour Start Date";
+		}
+		reservation.setReservedDate(reservedDate);
+
+		// Validating Payment date and saving it
+		if (tourStartDate.compareTo(paymentDate) < 0 || tourStartDate.compareTo(paymentDate) == 0) {
+			return "You can't do the payment on or after Tour start date";
+		}
+		reservation.setPaymentDate(paymentDate);
+
+		// Setting Payment Status based on reserved and payment date
+		if (paymentDate.compareTo(reservedDate) == 0 && tourStartDate.compareTo(paymentDate) > 0
+				|| paymentDate.compareTo(reservedDate) < 0) {
+			reservation.setPaymentStatus("Completed");
+		} else if (paymentDate.compareTo(reservedDate) > 0) {
+			reservation.setPaymentStatus("Pending");
+		}
+		reservationRepository.save(reservation);
+		return "Reserved Successfully";
+	}
+
+	// Viewing Reservation based on userID
+	@Override
+	public List<Reservation> viewReservation(int userId) {
+		// Should find by userId if not there throw an Exception
+		Optional<User> optionalUser = userRepository.findById(userId);
+		if (optionalUser.isEmpty()) {
+			throw new UserNotFoundException("No user found with the Id:" + userId);
+		}
+		User user = optionalUser.get();
+		// then find the reservation whether the user has some reservation or not
+		List<Reservation> reservations = reservationRepository.findByuser(user);
+
+		// if not throw an exception
+		if (reservations.isEmpty()) {
+			throw new ReservationNotFoundException("No Reservation found with the Id: " + userId);
+		}
+		return reservations;
+	}
+
+	@Override
+	public Reservation modifyReservation(Reservation reservation) {
+		// first find by id
+		Optional<Reservation> optionalReservation = reservationRepository.findById(reservation.getReservationId());
+		if (optionalReservation.isEmpty()) {
+			throw new ReservationNotFoundException(
+					"No Reservation found to modify with the ID:" + reservation.getReservationId());
+		}
+		Reservation ureservation = optionalReservation.get();
+		return reservationRepository.save(ureservation);
+	}
+
+	// Display all Reservations
+	@Override
+	public List<Reservation> getAllReservation() {
+		return reservationRepository.findAll();
+	}
+
+	// View Reservation based on reservationId
+	@Override
+	public Reservation viewReservationById(int reservationId) {
+		Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+		if (optionalReservation.isEmpty()) {
+			throw new ReservationNotFoundException("There are no reservations for the Id:" + reservationId);
+		}
+		Reservation reservation = optionalReservation.get();
+		return reservation;
+	}
+
+	// Delete reservation based on reservationID
+	@Override
+	public void deleteReservation(int reservationId) {
+		Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+		if (optionalReservation.isEmpty()) {
+			throw new ReservationNotFoundException("There is no reservation with the Id: " + reservationId);
+		}
+		reservationRepository.deleteById(reservationId);
+	}
+}

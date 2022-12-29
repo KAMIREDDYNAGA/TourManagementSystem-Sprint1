@@ -1,0 +1,51 @@
+package com.sprint1.tourmanagement.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sprint1.tourmanagement.entity.Customer;
+import com.sprint1.tourmanagement.entity.User;
+import com.sprint1.tourmanagement.service.UserService;
+
+@RestController
+public class UserController {
+	
+	@Autowired
+	private UserService tourManagementService;
+	
+	@GetMapping("user/login/{user_type}/{userId}/{password}")
+	public ResponseEntity<User> doLogin(@PathVariable("user_type") String user_type,@PathVariable("userId") String userId,@PathVariable("password") String password){
+		User user=tourManagementService.userLogin(user_type, userId, password);
+		ResponseEntity<User> responseEntity=new ResponseEntity<>(user,HttpStatus.OK);
+		return responseEntity;	
+	}
+	
+	public ResponseEntity<Customer> addCustomer(Customer customer){
+		//Customer customer1=tourManage
+		return null;
+		
+	}
+	
+	@PostMapping("createNewUser")
+	public ResponseEntity<User> addUser(@RequestBody User user){
+		User user1=tourManagementService.saveUser(user);
+		ResponseEntity<User> responseEntity=new ResponseEntity<>(user1,HttpStatus.CREATED);
+		return responseEntity;		
+	}
+	
+	@PutMapping("Update_Customer_Details")
+	public ResponseEntity<User> modifyUser(@RequestBody User user){
+		User user1=tourManagementService.updateUser(user);
+		ResponseEntity<User> responseEntity=new ResponseEntity<>(user1,HttpStatus.OK);
+		return responseEntity;
+		
+	}
+}
+

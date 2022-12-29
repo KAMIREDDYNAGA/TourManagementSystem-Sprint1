@@ -1,0 +1,5 @@
+package com.sprint1.tourmanagement.dto;
+
+public class ReservationDto {
+
+}

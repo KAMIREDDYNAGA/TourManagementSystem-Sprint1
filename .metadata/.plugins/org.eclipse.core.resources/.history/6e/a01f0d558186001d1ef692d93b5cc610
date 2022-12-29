@@ -1,0 +1,12 @@
+package com.sprint1.tourmanagement.service;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ReservationServiceTest {
+	
+	public void getAllReservations() {
+		
+	}
+
+}
